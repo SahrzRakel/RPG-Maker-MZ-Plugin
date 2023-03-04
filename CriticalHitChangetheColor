@@ -1,0 +1,71 @@
+//==========================================
+//RPGツクールMZプラグイン
+//==========================================
+//2023/03/04
+//==========================================
+
+/*:
+* @plugindesc クリティカルヒット時のダメージの値の色を変える。
+* @author Sahrz Rakel
+* @help クリティカルヒット時に表示されるダメージ値の色を変えます。
+*
+* @param Red
+* @desc クリティカルヒット時の赤色の度合いを決めます。
+* デフォルトは255です。
+* @type namber
+* @default 255
+* @max 255
+* @min 0
+*
+* @param Green
+* @desc クリティカルヒット時の緑色の度合いを決めます。
+* デフォルトは0です。
+* @type namber
+* @default 0
+* @max 255
+* @min 0 
+*
+* @param Blue
+* @desc クリティカルヒット時の青色の度合いを決めます。]
+* デフォルトは0です。
+* @type namber
+* @default 0
+* @max 255
+* @min 0
+*
+* @param Alpha
+* @desc クリティカルヒット時の透明度の度合いを決めます。
+* デフォルトは160です。
+* @type namber
+* @default 160
+* @max 255
+* @min 0 
+*
+* @param CriticalHitDuration
+* @desc クリティカルヒット時の表示時間を決めます。
+* デフォルトは60です。
+* @type namber
+* @default 60
+* @min 0
+*
+*/
+
+
+
+(() => {
+    'use strict';
+    //パラメーターに入力された数字を使えるようにする。
+    var parameters = PluginManager.parameters('CriticalHitChangetheColor');
+    //パラメーターに入力された数字を関数に入れる。
+    var CriticalHitColorR = Number(parameters['Red']);
+    var CriticalHitColorG = Number(parameters['Green']);
+    var CriticalHitColorB = Number(parameters['Blue']);
+    var CriticalHitColorA = Number(parameters['Alpha']);
+    var CriticalHitDuration = Number(parameters['CriticalHitDuration']);
+
+    //スピリットjsのクリティカルヒット時の文字エフェクトを変える。
+    Sprite_Damage.prototype.setupCriticalEffect = function () {
+        this._flashColor = [CriticalHitColorR, CriticalHitColorG, CriticalHitColorB, CriticalHitColorA];
+        this._flashDuration = CriticalHitDuration
+    };
+})();
